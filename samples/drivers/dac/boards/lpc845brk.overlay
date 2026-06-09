@@ -1,0 +1,27 @@
+#include <zephyr/dt-bindings/pinctrl/lpc84x-pinctrl.h>
+
+/* 1. Define the hardware wiring inside the Switch Matrix (SWM) */
+&swm {
+	pinmux_dac0: pinmux_dac0 {
+		group0 {
+			/* Tell the Switch Matrix to connect DAC0 */
+			pinmux = <LPC84X_SWM_DACOUT0>;
+		};
+	};
+};
+
+/* 2. Attach the wiring to the DAC peripheral */
+&dac0 {
+	status = "okay";
+	pinctrl-0 = <&pinmux_dac0>;
+	pinctrl-names = "default";
+};
+
+/* 3. Tell the sample application to use it */
+/ {
+	zephyr,user {
+		dac = <&dac0>;
+		dac-channel-id = <0>;
+		dac-resolution = <10>;
+	};
+};

@@ -95,7 +95,8 @@
 #define LPC84X_SWM_T0_CAP_CHN0   57U /**< T0 CAP CHN0 */
 #define LPC84X_SWM_T0_CAP_CHN1   58U /**< T0 CAP CHN1 */
 #define LPC84X_SWM_T0_CAP_CHN2   59U /**< T0 CAP CHN2 */
-
+#define LPC84X_SWM_DACOUT0       26U
+#define LPC84X_SWM_DACOUT1       27U
 /**
  * Physical port pin identifiers used by SWM.
  * Port 0 pins range from 0–31.

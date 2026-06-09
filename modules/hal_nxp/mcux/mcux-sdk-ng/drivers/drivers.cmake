@@ -310,6 +310,8 @@ endif()
 
 if(CONFIG_SOC_SERIES_LPC84X)
   set(CONFIG_MCUX_COMPONENT_driver.swm ON)
+  set_variable_ifdef(CONFIG_DAC_LPC84X            CONFIG_MCUX_COMPONENT_driver.lpc_dac)
+zephyr_library_compile_definitions_ifdef(CONFIG_DAC_LPC84X FSL_SDK_DISABLE_DRIVER_CLOCK_CONTROL=1)
 endif()
 
 if(CONFIG_SOC_SERIES_LPC84X)

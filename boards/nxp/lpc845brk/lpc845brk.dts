@@ -75,6 +75,13 @@
 	pinctrl-names = "default";
 };
 
+&dac0 {
+	status = "okay";
+	pinctrl-0 = <&pinmux_dac0>;
+	pinctrl-names = "default";
+	low-power-mode;
+};
+
 &swm {
 	status = "okay";
 
@@ -82,6 +89,18 @@
 		group0 {
 			pinmux = <LPC84X_PINMUX_M(LPC84X_SWM_USART0_TXD, P0_25)>,
 				 <LPC84X_PINMUX_M(LPC84X_SWM_USART0_RXD, P0_24)>;
+		};
+	};
+
+	pinmux_dac0: pinmux_dac0 {
+		group0 {
+			pinmux = <LPC84X_PINMUX_F(LPC84X_SWM_DACOUT0, P0_17)>;
+		};
+	};
+
+	pinmux_dac1: pinmux_dac1 {
+		group0 {
+			pinmux = <LPC84X_PINMUX_F(LPC84X_SWM_DACOUT1, P0_29)>;
 		};
 	};
 };

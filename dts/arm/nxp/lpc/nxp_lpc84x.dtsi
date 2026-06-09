@@ -36,6 +36,22 @@
 			reg = <0x00000000 DT_SIZE_K(64)>;
 		};
 
+		dac0: dac@40014000 {
+			compatible = "nxp,lpc84x-dac";
+			reg = <0x40014000 0x1000>;
+			clocks = <&syscon LPC84X_CLK_DAC0>;
+			status = "disabled";
+			#io-channel-cells = <1>;
+		};
+
+		dac1: dac@40018000 {
+			compatible = "nxp,lpc84x-dac";
+			reg = <0x40018000 0x1000>;
+			clocks = <&syscon LPC84X_CLK_DAC1>;
+			status = "disabled";
+			#io-channel-cells = <1>;
+		};
+
 		syscon: syscon@40048000 {
 			compatible = "nxp,lpc84x-clock";
 			reg = <0x40048000 0x4000>;

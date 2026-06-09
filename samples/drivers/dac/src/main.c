@@ -49,30 +49,25 @@ int main(void)
 		return 0;
 	}
 
-	printk("Generating sawtooth signal at DAC channel %d.\n",
-		DAC_CHANNEL_ID);
+printk("Generating slow square wave at DAC channel %d.\n", DAC_CHANNEL_ID);
+
 	while (1) {
-		/* Number of valid DAC values, e.g. 4096 for 12-bit DAC */
-		const int dac_values = 1U << DAC_RESOLUTION;
-
-		/*
-		 * 1 msec sleep leads to about 4 sec signal period for 12-bit
-		 * DACs. For DACs with lower resolution, sleep time needs to
-		 * be increased.
-		 * Make sure to sleep at least 1 msec even for future 16-bit
-		 * DACs (lowering signal frequency).
-		 */
-		const int sleep_time = 4096 / dac_values > 0 ?
-			4096 / dac_values : 1;
-
-		for (int i = 0; i < dac_values; i++) {
-			ret = dac_write_value(dac_dev, DAC_CHANNEL_ID, i);
-			if (ret != 0) {
-				printk("dac_write_value() failed with code %d\n", ret);
-				return 0;
-			}
-			k_sleep(K_MSEC(sleep_time));
+		/* Step 1: Force 0 Volts (0%) */
+		printk("Outputting 0.00V...\n");
+		ret = dac_write_value(dac_dev, DAC_CHANNEL_ID, 0);
+		if (ret != 0) {
+			printk("dac_write_value() failed: %d\n", ret);
 		}
+		k_msleep(2000); /* Freeze for 2 full seconds */
+
+		/* Step 2: Force 3.3 Volts (100%) */
+		printk("Outputting 3.30V...\n");
+		ret = dac_write_value(dac_dev, DAC_CHANNEL_ID, 1023);
+		if (ret != 0) {
+			printk("dac_write_value() failed: %d\n", ret);
+		}
+		k_msleep(2000); /* Freeze for 2 full seconds */
 	}
+
 	return 0;
 }
